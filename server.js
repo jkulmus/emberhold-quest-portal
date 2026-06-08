@@ -31,6 +31,20 @@ app.get("/about", (req, res) => {
     });
 });
 
+// Register
+app.get("/register", (req, res) => {
+    res.render("auth/register", {
+        title: "Join the Guild"
+    });
+});
+
+// Login
+app.get("/login", (req, res) => {
+    res.render("auth/login", {
+        title: "Guild Login"
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
