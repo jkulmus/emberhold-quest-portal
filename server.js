@@ -17,9 +17,17 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 
+// Home
 app.get("/", (req, res) => {
     res.render("index", {
         title: "Emberhold Quest Portal"
+    });
+});
+
+// About
+app.get("/about", (req, res) => {
+    res.render("about", {
+        title: "About Emberhold"
     });
 });
 
