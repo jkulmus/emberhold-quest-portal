@@ -1,12 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
-</head>
-<body>
-    <h1>Emberhold Quest Portal</h1>
-    <p>Your adventure begins here.</p>
-</body>
-</html>
+<%- include('partials/header') %>
+
+<main>
+    <section class="hero">
+        <h1>Emberhold Quest Portal</h1>
+        <p>Your next adventure awaits.</p>
+
+        <a href="/quests" class="button">Browse Quests</a>
+        <a href="/register" class="button">Join the Guild</a>
+    </section>
+
+    <section class="card">
+        <h2>Welcome to Emberhold</h2>
+        <p>
+            Emberhold is a guild hall for adventurers seeking quests,
+            reservations, and stories worth remembering.
+        </p>
+    </section>
+
+    <section class="card">
+        <h2>How It Works</h2>
+        <p>
+            Browse available quests, reserve an adventure, track your request,
+            and share your tale once the journey is complete.
+        </p>
+    </section>
+</main>
+
+<%- include('partials/footer') %>
