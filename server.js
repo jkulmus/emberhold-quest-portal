@@ -2,7 +2,9 @@ import "dotenv/config";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+
 import { setupDatabase, testConnection } from "./src/models/setup.js";
+import authRoutes from "./src/routes/auth.js";
 
 const PORT = process.env.PORT || 3000;
 
@@ -18,6 +20,8 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 
+app.use("/", authRoutes);
+
 // Home
 app.get("/", (req, res) => {
     res.render("index", {
@@ -32,14 +36,7 @@ app.get("/about", (req, res) => {
     });
 });
 
-// Register
-app.get("/register", (req, res) => {
-    res.render("auth/register", {
-        title: "Join the Guild"
-    });
-});
-
-// Login
+// Login placeholder
 app.get("/login", (req, res) => {
     res.render("auth/login", {
         title: "Guild Login"
