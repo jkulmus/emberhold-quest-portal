@@ -5,8 +5,43 @@
 
     <section class="card">
         <p>
-            Registration coming soon.
+            Create your guild member account to reserve quests, track your adventures,
+            and share your tales with Emberhold.
         </p>
+
+        <form method="POST" action="/register">
+            <div>
+                <label for="name">Guild Member Name</label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    required
+                >
+            </div>
+
+            <div>
+                <label for="email">Email Address</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    required
+                >
+            </div>
+
+            <div>
+                <label for="password">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    required
+                >
+            </div>
+
+            <button type="submit">Join the Guild</button>
+        </form>
     </section>
 </main>
 

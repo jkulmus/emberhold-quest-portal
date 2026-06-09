@@ -12,10 +12,10 @@ const createUser = async (name, email, hashedPassword) => {
     const result = await db.query(sql, [
         name,
         email,
-        hassedPassword
+        hashedPassword
     ]);
 
-    return result.row[0];
+    return result.rows[0];
 };
 
 const getUserByEmail = async (email) => {
