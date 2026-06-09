@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import { setupDatabase, testConnection } from "./src/models/setup.js";
 
 const PORT = process.env.PORT || 3000;
 
@@ -45,6 +46,9 @@ app.get("/login", (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+    await setupDatabase();
+    await testConnection();
+
     console.log(`Server running at http://localhost:${PORT}`);
 });
