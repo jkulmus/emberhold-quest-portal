@@ -13,7 +13,7 @@ const processRegistration = async (req, res) => {
 
     if (!errors.isEmpty()) {
         errors.array().forEach(error => {
-            console.error(error.msg);
+            req.flash("error", error.msg);
         });
 
         return res.redirect("/register");
@@ -25,7 +25,7 @@ const processRegistration = async (req, res) => {
         const existingUser = await getUserByEmail(email);
 
         if (existingUser) {
-            console.error("Email already registered");
+            req.flash("warning", "A guild member with that email already exists.");
             return res.redirect("/register");
         }
 
@@ -33,9 +33,12 @@ const processRegistration = async (req, res) => {
 
         await createUser(name, email, hashedPassword);
 
+        req.flash("success", "Welcome to the Guild! Your account has been created.");
         res.redirect("/login");
     } catch (error) {
         console.error(error);
+
+        req.flash("error", "Unable to create your guild account. Please try again.");
         res.redirect("/register");
     }
 };

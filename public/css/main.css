@@ -126,6 +126,40 @@ button:hover,
     margin: 1rem 0;
 }
 
+.messages {
+    max-width: 950px;
+    margin: 1rem auto;
+}
+
+.message {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    font-weight: bold;
+    border-left: 6px solid var(--iron);
+    background: var(--cream);
+}
+
+.message.success {
+    border-color: #2f7d32;
+    color: #1f5c23;
+}
+
+.message.error {
+    border-color: #a12b1f;
+    color: #7d1f18;
+}
+
+.message.warning {
+    border-color: var(--gold);
+    color: var(--dark-wood);
+}
+
+.message.info {
+    border-color: var(--iron);
+    color: var(--iron);
+}
+
 footer {
     text-align: center;
     padding: 1rem;

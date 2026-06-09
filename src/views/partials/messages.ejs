@@ -1,0 +1,11 @@
+<% if (messages) { %>
+    <div class="messages">
+        <% Object.keys(messages).forEach(type => { %>
+            <% messages[type].forEach(message => { %>
+                <div class="message <%= type %>">
+                    <%= message %>
+                </div>
+            <% }); %>
+        <% }); %>
+    </div>
+<% } %>
