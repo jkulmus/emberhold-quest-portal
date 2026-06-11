@@ -1,0 +1,31 @@
+<%- include('../partials/header') %>
+
+<main>
+    <h1>Quest Board</h1>
+
+    <section class="card">
+        <p>
+            Choose a quest from the guild board and begin your next adventure.
+        </p>
+    </section>
+
+    <% if (quests && quests.length > 0) { %>
+        <% quests.forEach(quest => { %>
+            <section class="card">
+                <h2><%= quest.title %></h2>
+                <p><%= quest.description %></p>
+
+                <p><strong>Difficulty:</strong> <%= quest.difficulty %></p>
+                <p><strong>Reward:</strong> <%= quest.reward %></p>
+                <p><strong>Duration:</strong> <%= quest.duration_minutes %> minutes</p>
+                <p><strong>Max Party Size:</strong> <%= quest.max_party_size %></p>
+            </section>
+        <% }) %>
+    <% } else { %>
+        <section class="card">
+            <p>No quests are posted yet.</p>
+        </section>
+    <% } %>
+</main>
+
+<%- include('../partials/footer') %>

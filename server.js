@@ -8,6 +8,7 @@ import connectPgSimple from "connect-pg-simple";
 
 import { setupDatabase, testConnection } from "./src/models/setup.js";
 import authRoutes from "./src/routes/auth.js";
+import questRoutes from "./src/routes/quests.js";
 import db from "./src/models/db.js";
 import flash from "./src/middleware/flash.js";
 
@@ -48,6 +49,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 
 app.use("/", authRoutes);
+app.use("/", questRoutes);
 
 // Home
 app.get("/", (req, res) => {
