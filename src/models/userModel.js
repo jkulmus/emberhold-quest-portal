@@ -30,7 +30,29 @@ const getUserByEmail = async (email) => {
     return result.rows[0];
 };
 
+const getUserByEmailWithRole = async (email) => {
+    const sql = `
+        SELECT
+            u.id,
+            u.name,
+            u.email,
+            u.password,
+            u.role_id,
+            r.role_name
+        FROM users u
+        LEFT JOIN roles r
+            ON u.role_id = r.id
+        WHERE LOWER(u.email) = LOWER($1)
+        LIMIT 1;
+    `;
+
+    const result = await db.query(sql, [email]);
+
+    return result.rows[0] || null;
+}
+
 export {
     createUser,
-    getUserByEmail
+    getUserByEmail,
+    getUserByEmailWithRole
 };

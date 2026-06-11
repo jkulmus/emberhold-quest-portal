@@ -25,4 +25,19 @@ const registrationValidation = [
         .withMessage("Password must contain at least one uppercase letter")
 ];
 
-export { registrationValidation };
+const loginValidation = [
+    body("email")
+        .trim()
+        .isEmail()
+        .withMessage("Please enter a vaild email address")
+        .normalizeEmail(),
+
+    body("password")
+        .notEmpty()
+        .withMessage("Password is required")
+];
+
+export { 
+    registrationValidation,
+    loginValidation
+};

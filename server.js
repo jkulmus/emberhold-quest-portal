@@ -63,10 +63,14 @@ app.get("/about", (req, res) => {
     });
 });
 
-// Login placeholder
-app.get("/login", (req, res) => {
-    res.render("auth/login", {
-        title: "Guild Login"
+app.get("/dashboard", (req, res) => {
+    if (!req.session.user) {
+        return res.redirect("/login");
+    }
+
+    res.render("dashboard", {
+        title: "Guild Hall Dashboard",
+        user: req.session.user
     });
 });
 

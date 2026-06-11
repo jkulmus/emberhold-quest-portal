@@ -1,12 +1,37 @@
 <%- include('../partials/header') %>
 
 <main>
-    <h1>Guild Member Login</h1>
+    <h1>Enter the Guild Hall</h1>
 
     <section class="card">
         <p>
-            Login system coming soon.
+            Sign in to view your guild profile, manage reservations,
+            and continue your Emberhold adventures.
         </p>
+
+        <form method="POST" action="/login">
+            <div>
+                <label for="email">Email Address</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    required
+                >
+            </div>
+
+            <div>
+                <label for="password">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    required
+                >
+            </div>
+
+            <button type="submit">Enter the Guild Hall</button>
+        </form>
     </section>
 </main>
 

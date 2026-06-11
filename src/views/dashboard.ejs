@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+<main>
+    <h1>Guild Hall Dashboard</h1>
+
+    <section class="card">
+        <h2>Welcome, <%= user.name %>!</h2>
+
+        <p>
+            Guild Rank:
+            <strong><%= user.role_name %></strong>
+        </p>
+
+        <p>
+            Your adventures await.
+        </p>
+    </section>
+
+    <section class="card">
+        <h2>Guild Status</h2>
+
+        <p>Quests Completed: 0</p>
+        <p>Active Reservations: 0</p>
+    </section>
+</main>
+
+<%- include('partials/footer') %>
