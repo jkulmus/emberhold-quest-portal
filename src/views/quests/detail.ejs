@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+
+<main>
+    <section class="card">
+        <h1><%= quest.title %></h1>
+
+        <p>
+            <strong>Difficulty:</strong>
+            <%= quest.difficulty %>
+        </p>
+
+        <p>
+            <strong>Reward:</strong>
+            <%= quest.reward %>
+        </p>
+
+        <p>
+            <strong>Duration:</strong>
+            <%= quest.duration_minutes %> minutes
+        </p>
+
+        <p>
+            <strong>Party Size:</strong>
+            <%= quest.max_party_size %>
+        </p>
+
+        <hr>
+
+        <p>
+            <%= quest.description %>
+        </p>
+
+        <p>
+            <a href="/quests">← Return to Quest Board</a>
+        </p>
+    </section>
+</main>
+
+<%- include('../partials/footer') %>

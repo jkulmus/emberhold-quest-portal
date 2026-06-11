@@ -12,6 +12,20 @@ const getAllQuests = async () => {
     return result.rows;
 };
 
+const getQuestById = async (id) => {
+    const sql = `
+        SELECT *
+        FROM quests
+        WHERE id = $1
+            AND is_active = TRUE
+    `;
+
+    const result = await db.query(sql, [id]);
+
+    return result.rows[0] || null;
+}
+
 export {
-    getAllQuests
+    getAllQuests,
+    getQuestById
 };

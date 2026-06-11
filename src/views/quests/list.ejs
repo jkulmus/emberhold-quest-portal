@@ -12,9 +12,12 @@
     <% if (quests && quests.length > 0) { %>
         <% quests.forEach(quest => { %>
             <section class="card">
-                <h2><%= quest.title %></h2>
+                <h2>
+                    <a href="/quests/<%= quest.id %>">
+                        <%= quest.title %>
+                    </a>
+                </h2>
                 <p><%= quest.description %></p>
-
                 <p><strong>Difficulty:</strong> <%= quest.difficulty %></p>
                 <p><strong>Reward:</strong> <%= quest.reward %></p>
                 <p><strong>Duration:</strong> <%= quest.duration_minutes %> minutes</p>
