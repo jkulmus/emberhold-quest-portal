@@ -53,8 +53,44 @@ const createQuest = async ({
     return result.rows[0];
 };
 
+const updateQuest = async (id, {
+    title,
+    description,
+    difficulty,
+    reward,
+    duration_minutes,
+    max_party_size
+}) => {
+    const sql = `
+        UPDATE quests
+        SET
+            title = $1,
+            description = $2,
+            difficulty = $3,
+            reward = $4,
+            duration_minutes = $5,
+            max_party_size = $6,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = $7
+        RETURNING *;
+    `;
+
+    const result = await db.query(sql, [
+        title,
+        description,
+        difficulty,
+        reward,
+        duration_minutes,
+        max_party_size,
+        id
+    ]);
+
+    return result.rows[0] || null;
+};
+
 export {
     getAllQuests,
     getQuestById,
-    createQuest
+    createQuest,
+    updateQuest
 };

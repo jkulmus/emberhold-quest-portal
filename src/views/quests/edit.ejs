@@ -1,0 +1,48 @@
+<%- include('../partials/header') %>
+
+<main>
+    <h1>Edit Quest</h1>
+
+    <section class="card">
+        <form method="POST" action="/quests/<%= quest.id %>/edit">
+            <div>
+                <label for="title">Quest Title</label>
+                <input type="text" id="title" name="title" value="<%= quest.title %>" required>
+            </div>
+
+            <div>
+                <label for="description">Quest Description</label>
+                <textarea id="description" name="description" required><%= quest.description %></textarea>
+            </div>
+
+            <div>
+                <label for="difficulty">Difficulty</label>
+                <select id="difficulty" name="difficulty" required>
+                    <option value="Beginner" <%= quest.difficulty === "Beginner" ? "selected" : "" %>>Beginner</option>
+                    <option value="Intermediate" <%= quest.difficulty === "Intermediate" ? "selected" : "" %>>Intermediate</option>
+                    <option value="Advanced" <%= quest.difficulty === "Advanced" ? "selected" : "" %>>Advanced</option>
+                    <option value="Legendary" <%= quest.difficulty === "Legendary" ? "selected" : "" %>>Legendary</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="reward">Reward</label>
+                <input type="text" id="reward" name="reward" value="<%= quest.reward %>">
+            </div>
+
+            <div>
+                <label for="duration_minutes">Duration in Minutes</label>
+                <input type="number" id="duration_minutes" name="duration_minutes" value="<%= quest.duration_minutes %>">
+            </div>
+
+            <div>
+                <label for="max_party_size">Max Party Size</label>
+                <input type="number" id="max_party_size" name="max_party_size" value="<%= quest.max_party_size %>">
+            </div>
+
+            <button type="submit">Update Quest</button>
+        </form>
+    </section>
+</main>
+
+<%- include('../partials/footer') %>

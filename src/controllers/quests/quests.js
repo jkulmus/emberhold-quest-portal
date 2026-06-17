@@ -1,7 +1,8 @@
 import { 
     getAllQuests,
     getQuestById,
-    createQuest
+    createQuest,
+    updateQuest
 } from "../../models/quests/quests.js";
 
 const questListPage = async (req, res) => {
@@ -56,9 +57,51 @@ const processCreateQuest = async (req, res) => {
     }
 };
 
+const showEditQuestForm = async (req, res) => {
+    try {
+        const quest = await getQuestById(req.params.id);
+
+        if (!quest) {
+            req.flash("error", "Quest not found.");
+            return res.redirect("/quests");
+        }
+
+        res.render("quests/edit", {
+            title: `Edit ${quest.title}`,
+            quest
+        });
+    } catch (error) {
+        console.error("Error loading edit quest form:", error);
+
+        req.flash("error", "Unable to load quest for editing.");
+        res.redirect("/quests");
+    }
+};
+
+const processEditQuest = async (req, res) => {
+    try {
+        const updatedQuest = await updateQuest(req.params.id, req.body);
+
+        if (!updatedQuest) {
+            req.flash("error", "Quest not found.");
+            return res.redirect("/quests");
+        }
+
+        req.flash("success", "Quest updated successfully.");
+        res.redirect(`/quests/${req.params.id}`);
+    } catch (error) {
+        console.error("Error updating quest:", error);
+
+        req.flash("error", "Unable to update quest.");
+        res.redirect(`/quests/${req.params.id}/edit`);
+    }
+};
+
 export { 
     questListPage,
     questDetailPage,
     showCreateQuestForm,
-    processCreateQuest
+    processCreateQuest,
+    showEditQuestForm,
+    processEditQuest
 };
