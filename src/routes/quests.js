@@ -5,7 +5,8 @@ import {
     showCreateQuestForm,
     processCreateQuest,
     showEditQuestForm,
-    processEditQuest
+    processEditQuest,
+    processDeleteQuest
 } from "../controllers/quests/quests.js";
 
 const router = Router();
@@ -16,6 +17,8 @@ router.post("/quests", processCreateQuest);
 
 router.get("/quests/:id/edit", showEditQuestForm);
 router.post("/quests/:id/edit", processEditQuest);
+
+router.post("/quests/:id/delete", processDeleteQuest);
 
 router.get("/quests/:id", questDetailPage);
 

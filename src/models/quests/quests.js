@@ -88,9 +88,25 @@ const updateQuest = async (id, {
     return result.rows[0] || null;
 };
 
+const deleteQuest = async (id) => {
+    const sql = `
+        UPDATE quests
+        SET
+            is_active = FALSE,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = $1
+        RETURNING *;
+    `;
+
+    const result = await db.query(sql, [id]);
+
+    return result.rows[0] || null;
+};
+
 export {
     getAllQuests,
     getQuestById,
     createQuest,
-    updateQuest
+    updateQuest,
+    deleteQuest
 };

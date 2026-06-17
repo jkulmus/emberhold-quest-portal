@@ -2,7 +2,8 @@ import {
     getAllQuests,
     getQuestById,
     createQuest,
-    updateQuest
+    updateQuest,
+    deleteQuest
 } from "../../models/quests/quests.js";
 
 const questListPage = async (req, res) => {
@@ -97,11 +98,31 @@ const processEditQuest = async (req, res) => {
     }
 };
 
+const processDeleteQuest = async (req, res) => {
+    try {
+        const deletedQuest = await deleteQuest(req.params.id);
+
+        if (!deletedQuest) {
+            req.flash("error", "Quest not found");
+            return res.redirect("/quests");
+        }
+
+        req.flash("success", "Quest removed from the guild board");
+        res.redirect("/quests");
+    } catch (error) {
+        console.error("Error deleting quest:", error);
+
+        req.flash("error", "Unable to delete quest");
+        res.redirect(`/quest/${req.params.id}`);
+    }
+};
+
 export { 
     questListPage,
     questDetailPage,
     showCreateQuestForm,
     processCreateQuest,
     showEditQuestForm,
-    processEditQuest
+    processEditQuest,
+    processDeleteQuest
 };
