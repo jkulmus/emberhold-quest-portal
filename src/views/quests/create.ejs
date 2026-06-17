@@ -1,0 +1,49 @@
+<%- include('../partials/header') %>
+
+<main>
+    <h1>Post a New Quest</h1>
+
+    <section class="card">
+        <form method="POST" action="/quests">
+            <div>
+                <label for="title">Quest Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+
+            <div>
+                <label for="description">Quest Description</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+
+            <div>
+                <label for="difficulty">Difficulty</label>
+                <select id="difficulty" name="difficulty" required>
+                    <option value="">Choose difficulty</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                    <option value="Legendary">Legendary</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="reward">Reward</label>
+                <input type="text" id="reward" name="reward">
+            </div>
+
+            <div>
+                <label for="duration_minutes">Duration in Minutes</label>
+                <input type="number" id="duration_minutes" name="duration_minutes">
+            </div>
+
+            <div>
+                <label for="max_party_size">Max Party Size</label>
+                <input type="number" id="max_party_size" name="max_party_size">
+            </div>
+
+            <button type="submit">Post Quest</button>
+        </form>
+    </section>
+</main>
+
+<%- include('../partials/footer') %>

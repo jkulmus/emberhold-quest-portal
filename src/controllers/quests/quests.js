@@ -1,6 +1,7 @@
 import { 
     getAllQuests,
-    getQuestById
+    getQuestById,
+    createQuest
 } from "../../models/quests/quests.js";
 
 const questListPage = async (req, res) => {
@@ -31,11 +32,33 @@ const questDetailPage = async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-        res.status(500).send("Unable to load quest");
+        res.status(500).send("Unable to load quest.");
+    }
+};
+
+const showCreateQuestForm = (req, res) => {
+    res.render("quests/create", {
+        title: "Post a New Quest"
+    });
+};
+
+const processCreateQuest = async (req, res) => {
+    try {
+        await createQuest(req.body);
+
+        req.flash("success", "New quest posted to the guild board!");
+        res.redirect("/quests");
+    } catch (error) {
+        console.error("Error creating quest:", error);
+
+        req.flash("error", "Unable to post quest.");
+        res.redirect("/quests/new");
     }
 };
 
 export { 
     questListPage,
-    questDetailPage
+    questDetailPage,
+    showCreateQuestForm,
+    processCreateQuest
 };
