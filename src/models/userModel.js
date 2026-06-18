@@ -5,7 +5,12 @@ const createUser = async (name, email, hashedPassword) => {
         INSERT INTO users
         (name, email, password, role_id)
         VALUES
-        ($1, $2, $3, 1)
+        (
+            $1,
+            $2,
+            $3,
+            (SELECT id FROM roles WHERE role_name = 'user')
+        )
         RETURNING *;
     `;
 
