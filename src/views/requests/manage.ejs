@@ -1,0 +1,35 @@
+<%- include('../partials/header') %>
+
+<main>
+    <h1>Manage Quest Requests</h1>
+
+    <% if (requests && requests.length > 0) { %>
+        <% requests.forEach(request => { %>
+            <section class="card">
+                <h2><%= request.quest_title %></h2>
+
+                <p><strong>Guild Member:</strong> <%= request.user_name %></p>
+                <p><strong>Email:</strong> <%= request.user_email %></p>
+                <p><strong>Status:</strong> <%= request.status %></p>
+                <p><strong>Difficulty:</strong> <%= request.difficulty %></p>
+
+                <form method="POST" action="/requests/<%= request.id %>/status">
+                    <select name="status" required>
+                        <option value="Requested" <%= request.status === "Requested" ? "selected" : "" %>>Requested</option>
+                        <option value="Approved" <%= request.status === "Approved" ? "selected" : "" %>>Approved</option>
+                        <option value="Completed" <%= request.status === "Completed" ? "selected" : "" %>>Completed</option>
+                        <option value="Cancelled" <%= request.status === "Cancelled" ? "selected" : "" %>>Cancelled</option>
+                    </select>
+
+                    <button type="submit">Update Status</button>
+                </form>
+            </section>
+        <% }) %>
+    <% } else { %>
+        <section class="card">
+            <p>No quest requests yet.</p>
+        </section>
+    <% } %>
+</main>
+
+<%- include('../partials/footer') %>

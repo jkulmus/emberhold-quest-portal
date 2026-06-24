@@ -1,0 +1,31 @@
+<%- include('../partials/header') %>
+
+<main>
+    <h1>My Quest Requests</h1>
+
+    <% if (requests && requests.length > 0) { %>
+        <% requests.forEach(request => { %>
+            <section class="card">
+                <h2><%= request.title %></h2>
+
+                <p><strong>Status:</strong> <%= request.status %></p>
+                <p><strong>Difficulty:</strong> <%= request.difficulty %></p>
+                <p><strong>Reward:</strong> <%= request.reward %></p>
+
+                <% if (request.staff_notes) { %>
+                    <p><strong>Guild Notes:</strong> <%= request.staff_notes %></p>
+                <% } %>
+            </section>
+        <% }) %>
+    <% } else { %>
+        <section class="card">
+            <p>You have not requested any quests yet.</p>
+        </section>
+    <% } %>
+
+    <p>
+        <a href="/quests" class="button">Return to Quest Board</a>
+    </p>
+</main>
+
+<%- include('../partials/footer') %>

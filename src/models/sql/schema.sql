@@ -28,6 +28,17 @@ CREATE TABLE IF NOT EXISTS quests (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS  quest_requests (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    quest_id INTEGER NOT NULL REFERENCES quests(id),
+    status VARCHAR(50) DEFAULT 'Requested',
+    staff_notes TEXT,
+    completed_at TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 INSERT INTO roles (role_name, role_description)
 VALUES
     ('user', 'Standard guild member'),

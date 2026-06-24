@@ -30,15 +30,29 @@
             <%= quest.description %>
         </p>
 
-        <p>
-            <a href="/quests/<%= quest.id %>/edit" class="button">Edit Quest</a>
-        </p>
-        
-        <form method="POST" action="/quests/<%= quest.id %>/delete">
-            <button type="submit">
-                Delete Quest
-            </button>
-        </form>
+        <% if (user) { %>
+            <form method="POST" action="/quests/<%= quest.id %>/request">
+                <button type="submit">
+                    Request Quest
+                </button>
+            </form>
+        <% } %>
+
+        <% if (user && (user.role_name === "admin" || user.role_name === "staff")) { %>
+
+            <p>
+                <a href="/quests/<%= quest.id %>/edit" class="button">
+                    Edit Quest
+                </a>
+            </p>
+
+            <form method="POST" action="/quests/<%= quest.id %>/delete">
+                <button type="submit">
+                    Delete Quest
+                </button>
+            </form>
+
+        <% } %>
 
         <p>
             <a href="/quests">← Return to Quest Board</a>

@@ -3,8 +3,20 @@
         <li><a href="/">Home</a></li>
         <li><a href="/about">About</a></li>
         <li><a href="/quests">Quests</a></li>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/register">Register</a></li>
-        <li><a href="/logout">Logout</a></li>
+
+        <% if (user) { %>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/my-quests">My Quests</a></li>
+
+            <% if (user.role_name === "admin" || user.role_name === "staff") { %>
+                <li><a href="/quests/new">Post Quest</a></li>
+                <li><a href="/requests">Manage Requests</a></li>
+            <% } %>
+
+            <li><a href="/logout">Logout</a></li>
+        <% } else { %>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+        <% } %>
     </ul>
 </nav>
