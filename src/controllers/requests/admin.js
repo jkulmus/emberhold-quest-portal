@@ -1,6 +1,7 @@
 import {
     getAllQuestRequests,
-    updateQuestRequestStatus
+    updateQuestRequestStatus,
+    VALID_REQUEST_STATUSES
 } from "../../models/reservations/reservations.js";
 
 const manageQuestRequestsPage = async (req, res) => {
@@ -9,7 +10,8 @@ const manageQuestRequestsPage = async (req, res) => {
 
         res.render("requests/manage", {
             title: "Manage Quest Requests",
-            requests
+            requests,
+            statuses: VALID_REQUEST_STATUSES
         });
     } catch (error) {
         console.error(error);
@@ -19,10 +21,15 @@ const manageQuestRequestsPage = async (req, res) => {
 
 const updateQuestRequest = async (req, res) => {
     try {
-        await updateQuestRequestStatus(
+        const updatedRequest = await updateQuestRequestStatus(
             req.params.id,
             req.body.status
         );
+
+        if (!updatedRequest) {
+            req.flash("error", "Quest request not found.");
+            return res.redirect("/requests");
+        }
 
         req.flash("success", "Quest request updated.");
         res.redirect("/requests");

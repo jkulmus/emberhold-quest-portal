@@ -1,5 +1,12 @@
 import db from "../db.js";
 
+const VALID_REQUEST_STATUSES = [
+    "Requested",
+    "Approved",
+    "Completed",
+    "Cancelled"
+];
+
 const createQuestRequest = async (userId, questId) => {
     const sql = `
         INSERT INTO quest_requests
@@ -60,20 +67,26 @@ const getAllQuestRequests = async () => {
 };
 
 const updateQuestRequestStatus = async (requestId, status) => {
+    const normalizedStatus = status?.trim();
+
+    if (!VALID_REQUEST_STATUSES.includes(normalizedStatus)) {
+        throw new Error("Invalid quest request status");
+    }
+
     const sql = `
         UPDATE quest_requests
         SET
-            status = $1,
+            status = $1::VARCHAR,
             completed_at = CASE
-                WHEN $1 = 'Completed' THEN CURRENT_TIMESTAMP
-                ELSE completed_at
+                WHEN $1::VARCHAR = 'Completed' THEN CURRENT_TIMESTAMP
+                ELSE NULL
             END,
             updated_at = CURRENT_TIMESTAMP
         WHERE id = $2
         RETURNING *;
     `;
 
-    const result = await db.query(sql, [status, requestId]);
+    const result = await db.query(sql, [normalizedStatus, requestId]);
     return result.rows[0] || null;
 };
 
@@ -81,5 +94,6 @@ export {
     createQuestRequest,
     getRequestsByUserId,
     getAllQuestRequests,
-    updateQuestRequestStatus
+    updateQuestRequestStatus,
+    VALID_REQUEST_STATUSES
 };
