@@ -3,24 +3,58 @@
 <main>
     <h1>Guild Hall Dashboard</h1>
 
-    <section class="card">
-        <h2>Welcome, <%= user.name %>!</h2>
-
+    <section class="hero">
+        <h1>Welcome back, <%= user.name %>!</h1>
         <p>
             Guild Rank:
             <strong><%= user.role_name %></strong>
         </p>
-
-        <p>
-            Your adventures await.
-        </p>
     </section>
 
     <section class="card">
-        <h2>Guild Status</h2>
+        <h2>Quest Activity</h2>
 
-        <p>Quests Completed: 0</p>
-        <p>Active Reservations: 0</p>
+        <p><strong>Total Requests:</strong> <%= stats.total_requests %></p>
+        <p><strong>Requested:</strong> <%= stats.requested_count %></p>
+        <p><strong>Approved:</strong> <%= stats.approved_count %></p>
+        <p><strong>Completed:</strong> <%= stats.completed_count %></p>
+        <p><strong>Cancelled:</strong> <%= stats.cancelled_count %></p>
+    </section>
+
+    <section class="card">
+        <h2>Quick Actions</h2>
+
+        <p>
+            <a href="/quests" class="button">Browse Quests</a>
+            <a href="/my-quests" class="button">My Quest Requests</a>
+        </p>
+
+        <% if (user.role_name === "admin" || user.role_name === "staff") { %>
+            <p>
+                <a href="/quests/new" class="button">Post New Quest</a>
+                <a href="/requests" class="button">Manage Requests</a>
+            </p>
+        <% } %>
+    </section>
+
+    <section class="card">
+        <h2>Recent Quest Activity</h2>
+
+        <% if (recentRequests && recentRequests.length > 0) { %>
+            <% recentRequests.forEach(request => { %>
+                <div class="quest-summary">
+                    <h3><%= request.title %></h3>
+                    <p>
+                        <strong>Status:</strong> <%= request.status %>
+                    </p>
+                    <p>
+                        <strong>Difficulty:</strong> <%= request.difficulty %>
+                    </p>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No recent quest activity yet.</p>
+        <% } %>
     </section>
 </main>
 

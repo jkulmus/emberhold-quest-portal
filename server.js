@@ -10,6 +10,7 @@ import { setupDatabase, testConnection } from "./src/models/setup.js";
 import authRoutes from "./src/routes/auth.js";
 import questRoutes from "./src/routes/quests.js";
 import requestRoutes from "./src/routes/requests.js";
+import dashboardRoutes from "./src/routes/dashboard.js";
 import db from "./src/models/db.js";
 import flash from "./src/middleware/flash.js";
 
@@ -57,6 +58,7 @@ app.set("views", path.join(__dirname, "src/views"));
 app.use("/", authRoutes);
 app.use("/", questRoutes);
 app.use("/", requestRoutes);
+app.use("/", dashboardRoutes);
 
 // Home
 app.get("/", (req, res) => {
@@ -69,17 +71,6 @@ app.get("/", (req, res) => {
 app.get("/about", (req, res) => {
     res.render("about", {
         title: "About Emberhold"
-    });
-});
-
-app.get("/dashboard", (req, res) => {
-    if (!req.session.user) {
-        return res.redirect("/login");
-    }
-
-    res.render("dashboard", {
-        title: "Guild Hall Dashboard",
-        user: req.session.user
     });
 });
 
