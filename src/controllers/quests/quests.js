@@ -113,7 +113,7 @@ const processDeleteQuest = async (req, res) => {
         console.error("Error deleting quest:", error);
 
         req.flash("error", "Unable to delete quest");
-        res.redirect(`/quest/${req.params.id}`);
+        res.redirect(`/quests/${req.params.id}`);
     }
 };
 
