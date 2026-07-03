@@ -7,10 +7,7 @@ import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 
 import { setupDatabase, testConnection } from "./src/models/setup.js";
-import authRoutes from "./src/routes/auth.js";
-import questRoutes from "./src/routes/quests.js";
-import requestRoutes from "./src/routes/requests.js";
-import dashboardRoutes from "./src/routes/dashboard.js";
+import router from "./src/routes/index.js";
 import db from "./src/models/db.js";
 import flash from "./src/middleware/flash.js";
 
@@ -55,24 +52,7 @@ app.use((req, res, next) => {
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 
-app.use("/", authRoutes);
-app.use("/", questRoutes);
-app.use("/", requestRoutes);
-app.use("/", dashboardRoutes);
-
-// Home
-app.get("/", (req, res) => {
-    res.render("index", {
-        title: "Emberhold Quest Portal"
-    });
-});
-
-// About
-app.get("/about", (req, res) => {
-    res.render("about", {
-        title: "About Emberhold"
-    });
-});
+app.use("/", router);
 
 app.listen(PORT, async () => {
     await setupDatabase();
