@@ -5,6 +5,7 @@ import questRoutes from "./quests.js";
 import requestRoutes from "./requests.js";
 import dashboardRoutes from "./dashboard.js";
 import adminRoutes from "./admin.js";
+import journalRoutes from "./journals.js";
 
 const router = Router();
 
@@ -27,5 +28,6 @@ router.use("/", questRoutes);
 router.use("/", requestRoutes);
 router.use("/", dashboardRoutes);
 router.use("/", adminRoutes);
+router.use("/", journalRoutes);
 
 export default router;
