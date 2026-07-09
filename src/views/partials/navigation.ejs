@@ -5,12 +5,16 @@
         <li><a href="/quests">Quests</a></li>
 
         <% if (user) { %>
-            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/dashboard">Guild Hall</a></li>
             <li><a href="/my-quests">My Quests</a></li>
 
-            <% if (user.role_name === "admin" || user.role_name === "staff") { %>
+            <% if (user.role_name === "staff" || user.role_name === "admin") { %>
+                <li><a href="/requests">Guild Requests</a></li>
+            <% } %>
+
+            <% if (user.role_name === "admin") { %>
+                <li><a href="/admin/users">Guild Management</a></li>
                 <li><a href="/quests/new">Post Quest</a></li>
-                <li><a href="/requests">Manage Requests</a></li>
             <% } %>
 
             <li><a href="/logout">Logout</a></li>

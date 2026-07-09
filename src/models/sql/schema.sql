@@ -39,6 +39,17 @@ CREATE TABLE IF NOT EXISTS  quest_requests (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS quest_journals (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    quest_request_id INTEGER NOT NULL REFERENCES quest_requests(id),
+    rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
+    entry TEXT NOT NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 INSERT INTO roles (role_name, role_description)
 VALUES
     ('user', 'Standard guild member'),

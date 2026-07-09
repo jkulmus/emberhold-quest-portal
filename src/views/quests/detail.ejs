@@ -38,8 +38,7 @@
             </form>
         <% } %>
 
-        <% if (user && (user.role_name === "admin" || user.role_name === "staff")) { %>
-
+        <% if (user && user.role_name === "admin") { %>
             <p>
                 <a href="/quests/<%= quest.id %>/edit" class="button">
                     Edit Quest
@@ -51,7 +50,6 @@
                     Delete Quest
                 </button>
             </form>
-
         <% } %>
 
         <p>
