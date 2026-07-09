@@ -1,0 +1,29 @@
+<%- include('../partials/header') %>
+
+<main>
+    <h1>Edit Quest Journal</h1>
+
+    <section class="card">
+        <form method="POST" action="/journals/<%= journal.id %>/edit">
+            <div>
+                <label for="rating">Rating</label>
+                <select id="rating" name="rating" required>
+                    <option value="5" <%= journal.rating === 5 ? "selected" : "" %>>5 - Legendary</option>
+                    <option value="4" <%= journal.rating === 4 ? "selected" : "" %>>4 - Excellent</option>
+                    <option value="3" <%= journal.rating === 3 ? "selected" : "" %>>3 - Good</option>
+                    <option value="2" <%= journal.rating === 2 ? "selected" : "" %>>2 - Fair</option>
+                    <option value="1" <%= journal.rating === 1 ? "selected" : "" %>>1 - Poor</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="entry">Journal Entry</label>
+                <textarea id="entry" name="entry" required><%= journal.entry %></textarea>
+            </div>
+
+            <button type="submit">Update Journal Entry</button>
+        </form>
+    </section>
+</main>
+
+<%- include('../partials/footer') %>

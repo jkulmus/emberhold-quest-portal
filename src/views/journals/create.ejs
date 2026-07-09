@@ -1,0 +1,30 @@
+<%- include('../partials/header') %>
+
+<main>
+    <h1>Write Quest Journal</h1>
+
+    <section class="card">
+        <form method="POST" action="/journals/request/<%= requestId %>">
+            <div>
+                <label for="rating">Rating</label>
+                <select id="rating" name="rating" required>
+                    <option value="">Choose rating</option>
+                    <option value="5">5 - Legendary</option>
+                    <option value="4">4 - Excellent</option>
+                    <option value="3">3 - Good</option>
+                    <option value="2">2 - Fair</option>
+                    <option value="1">1 - Poor</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="entry">Journal Entry</label>
+                <textarea id="entry" name="entry" required></textarea>
+            </div>
+
+            <button type="submit">Save Journal Entry</button>
+        </form>
+    </section>
+</main>
+
+<%- include('../partials/footer') %>
