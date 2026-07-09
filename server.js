@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import errorHandler from "./src/middleware/errorHandler.js";
 
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
@@ -53,6 +54,8 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 
 app.use("/", router);
+
+app.use(errorHandler);
 
 app.listen(PORT, async () => {
     await setupDatabase();
