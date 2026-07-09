@@ -2,10 +2,19 @@ import db from "../db.js";
 
 const getJournalByRequestId = async (questRequestId) => {
     const sql = `
-        SELECT *
-        FROM quest_journals
-        WHERE quest_request_id = $1
-            AND is_active = TRUE
+        SELECT
+            qj.id,
+            qj.rating,
+            qj.entry,
+            qj.created_at,
+            qj.updated_at,
+            qj.user_id,
+            u.name AS author
+        FROM quest_journals qj
+        JOIN users u
+            ON qj.user_id = u.id
+        WHERE qj.quest_request_id = $1
+            AND qj.is_active = TRUE
         LIMIT 1;
     `;
 

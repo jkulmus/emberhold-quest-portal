@@ -3,6 +3,10 @@ import {
     getRequestsByUserId
 } from "../../models/reservations/reservations.js";
 
+import {
+    getJournalByRequestId
+} from "../../models/journals/journals.js";
+
 const requestQuest = async (req, res) => {
     try {
         if (!req.session.user) {
@@ -31,9 +35,20 @@ const myQuestRequestsPage = async (req, res) => {
             req.session.user.id
         );
 
+        const requestsWithJournals = await Promise.all(
+            requests.map(async (request) => {
+                const journal = await getJournalByRequestId(request.id);
+
+                return {
+                    ...request,
+                    journal
+                };
+            })
+        );
+
         res.render("requests/my-quests", {
             title: "My Quest Requests",
-            requests
+            requests: requestsWithJournals
         });
     } catch (error) {
         console.error(error);

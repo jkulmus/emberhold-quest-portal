@@ -13,7 +13,48 @@
                 <p><strong>Reward:</strong> <%= request.reward %></p>
 
                 <% if (request.staff_notes) { %>
-                    <p><strong>Guild Notes:</strong> <%= request.staff_notes %></p>
+                    <p>
+                        <strong>Guild Notes:</strong>
+                        <%= request.staff_notes %>
+                    </p>
+                <% } %>
+
+                <% if (request.status === "Completed") { %>
+
+                    <% if (request.journal) { %>
+                        <hr>
+
+                        <h3>Quest Journal</h3>
+
+                        <p>
+                            <strong>Rating:</strong>
+                            <%= request.journal.rating %> / 5
+                        </p>
+
+                        <p>
+                            <strong>Entry:</strong>
+                            <%= request.journal.entry %>
+                        </p>
+
+                        <p>
+                            <a href="/journals/request/<%= request.id %>/edit" class="button">
+                                Edit Journal
+                            </a>
+                        </p>
+
+                        <form method="POST" action="/journals/<%= request.journal.id %>/delete">
+                            <button type="submit">
+                                Delete Journal
+                            </button>
+                        </form>
+                    <% } else { %>
+                        <p>
+                            <a href="/journals/request/<%= request.id %>/new" class="button">
+                                Write Quest Journal
+                            </a>
+                        </p>
+                    <% } %>
+
                 <% } %>
             </section>
         <% }) %>
@@ -24,7 +65,9 @@
     <% } %>
 
     <p>
-        <a href="/quests" class="button">Return to Quest Board</a>
+        <a href="/quests" class="button">
+            Return to Quest Board
+        </a>
     </p>
 </main>
 
