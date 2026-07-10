@@ -1,0 +1,78 @@
+/* Quest board and details */
+
+.quest-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.quest-card h2 a {
+    color: var(--deep-ember);
+}
+
+.quest-card h2 a:hover,
+.quest-card h2 a:focus {
+    color: var(--ember);
+}
+
+.quest-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.quest-badge {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--dark-wood);
+    background: var(--parchment);
+    border: 1px solid rgba(74, 49, 36, 0.3);
+    border-radius: 999px;
+}
+
+/* Create and edit quest forms */
+
+form[action="/quests"],
+form[action$="/edit"] {
+    max-width: 760px;
+}
+
+form[action="/quests"] input,
+form[action="/quests"] select,
+form[action="/quests"] textarea,
+form[action$="/edit"] input,
+form[action$="/edit"] select,
+form[action$="/edit"] textarea {
+    display: block;
+}
+
+form[action="/quests"] textarea,
+form[action$="/edit"] textarea {
+    min-height: 170px;
+}
+
+form[action="/quests"] button,
+form[action$="/edit"] button {
+    margin-top: 0.5rem;
+}
+
+.quest-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.quest-actions form,
+.quest-actions p {
+    margin: 0;
+}
+
+@media (max-width: 560px) {
+    .quest-actions {
+        display: block;
+    }
+}

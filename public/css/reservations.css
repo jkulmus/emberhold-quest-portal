@@ -1,0 +1,88 @@
+/* Quest request status */
+
+.status {
+    display: inline-block;
+    padding: 0.25rem 0.7rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border: 1px solid rgba(74, 49, 36, 0.25);
+    border-radius: 999px;
+}
+
+.status-requested {
+    color: #73540a;
+    background: #fff0b5;
+}
+
+.status-approved {
+    color: #244f76;
+    background: #d9ecff;
+}
+
+.status-in-progress {
+    color: #5c3f87;
+    background: #eadfff;
+}
+
+.status-awaiting-signoff {
+    color: #80500d;
+    background: #ffe1b7;
+}
+
+.status-completed {
+    color: #1f5c23;
+    background: #dcefdc;
+}
+
+.status-cancelled {
+    color: #7d1f18;
+    background: #f4d7d3;
+}
+
+/* Request management forms */
+
+form[action^="/requests/"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+form[action^="/requests/"] select {
+    width: auto;
+    min-width: 210px;
+}
+
+.request-details {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.request-card {
+    border-left-color: var(--gold);
+}
+
+.request-card h2 {
+    margin-bottom: 0.85rem;
+}
+
+.quest-summary {
+    padding: 1rem 0;
+    border-top: 1px solid rgba(74, 49, 36, 0.25);
+}
+
+.quest-summary:first-child {
+    border-top: 0;
+}
+
+@media (max-width: 560px) {
+    form[action^="/requests/"] {
+        display: block;
+    }
+
+    form[action^="/requests/"] select {
+        width: 100%;
+        margin-bottom: 0.75rem;
+    }
+}

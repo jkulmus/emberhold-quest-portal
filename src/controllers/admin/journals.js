@@ -3,7 +3,7 @@ import {
     adminDeleteJournalEntry
 } from "../../models/journals/journals.js";
 
-const manageJournalsPage = async (req, res) => {
+const manageJournalsPage = async (req, res, next) => {
     try {
         const journals = await getAllActiveJournals();
 
@@ -12,8 +12,8 @@ const manageJournalsPage = async (req, res) => {
             journals
         });
     } catch (error) {
-        console.error(error);
-        res.status(500).send("Unable to load quest journals");
+        console.error("Journal moderation error:", error);
+        next(error);
     }
 };
 

@@ -46,7 +46,7 @@ const createJournalEntry = async ({
     return result.rows[0];
 };
 
-const updateJournalEntry = async (getJournalByRequestId, userId, {
+const updateJournalEntry = async (journalId, userId, {
     rating,
     entry
 }) => {
@@ -113,7 +113,7 @@ const getAllActiveJournals = async () => {
         FROM quest_journals qj
         JOIN users u
             ON qj.user_id = u.id
-        JOIN quest_request qr
+        JOIN quest_requests qr
             ON qj.quest_request_id = qr.id
         JOIN quests q
             ON qr.quest_id = q.id

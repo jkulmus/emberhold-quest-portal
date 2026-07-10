@@ -21,7 +21,7 @@ const processRoleUpdate = async (req, res) => {
     try {
         await updateUserRole(req.params.id, req.body.role);
 
-        req.flash("success", "Guild member role undated");
+        req.flash("success", "Guild member role updated");
         res.redirect("/admin/users");
     } catch (error) {
         console.error("Error updating user role:", error);

@@ -1,0 +1,59 @@
+<%- include('../partials/header') %>
+
+<main>
+    <h1>Quest Journal Moderation</h1>
+
+    <section class="card">
+        <p>
+            Review journal entries submitted by guild members and remove any content
+            that is inappropriate or does not follow guild standards.
+        </p>
+    </section>
+
+    <% if (journals && journals.length > 0) { %>
+        <% journals.forEach(journal => { %>
+            <section class="card">
+                <h2><%= journal.quest_title %></h2>
+
+                <p>
+                    <strong>Guild Member:</strong>
+                    <%= journal.user_name %>
+                </p>
+
+                <p>
+                    <strong>Rating:</strong>
+                    <%= journal.rating %> / 5
+                </p>
+
+                <p>
+                    <strong>Journal Entry:</strong>
+                </p>
+
+                <blockquote>
+                    <%= journal.entry %>
+                </blockquote>
+
+                <p>
+                    <strong>Submitted:</strong>
+                    <%= new Date(journal.created_at).toLocaleDateString() %>
+                </p>
+
+                <form
+                    method="POST"
+                    action="/admin/journals/<%= journal.id %>/delete"
+                    onsubmit="return confirm('Remove this journal entry?');"
+                >
+                    <button type="submit">
+                        Remove Journal
+                    </button>
+                </form>
+            </section>
+        <% }) %>
+    <% } else { %>
+        <section class="card">
+            <p>There are no active journal entries to moderate.</p>
+        </section>
+    <% } %>
+</main>
+
+<%- include('../partials/footer') %>

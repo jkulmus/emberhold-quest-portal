@@ -1,3 +1,5 @@
+import { validationResult } from "express-validator";
+
 import {
     getJournalByRequestId,
     createJournalEntry,
@@ -5,8 +7,22 @@ import {
     deleteJournalEntry
 } from "../../models/journals/journals.js";
 
+import {
+    getCompletedRequestForUser
+} from "../../models/reservations/reservations.js";
+
 const showCreateJournalForm = async (req, res) => {
     try {
+        const completedRequest = await getCompletedRequestForUser(
+            req.params.requestId,
+            req.session.user.id
+        );
+
+        if (!completedRequest) {
+            req.flash("error", "Completed quest request not found");
+            return res.redirect("/my-quests");
+        }
+
         const existingJournal = await getJournalByRequestId(req.params.requestId);
 
         if (existingJournal) {
@@ -25,7 +41,27 @@ const showCreateJournalForm = async (req, res) => {
 };
 
 const processCreateJournal = async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        errors.array().forEach(error => {
+            req.flash("error", error.msg);
+        });
+
+        return res.redirect(`/journals/request/${req.params.requestId}/new`);
+    }
+
     try {
+        const completedRequest = await getCompletedRequestForUser(
+            req.params.requestId,
+            req.session.user.id
+        );
+
+        if (!completedRequest) {
+            req.flash("error", "Completed quest request not found");
+            return res.redirect("/my-quests");
+        }
+
         await createJournalEntry({
             user_id: req.session.user.id,
             quest_request_id: req.params.requestId,
@@ -49,7 +85,7 @@ const showEditJournalForm = async (req, res) => {
 
         if (!journal || journal.user_id !== req.session.user.id) {
             req.flash("error", "Journal entry not found");
-            res.redirect("/my-quests");
+            return res.redirect("/my-quests");
         }
 
         res.render("journals/edit", {
@@ -64,8 +100,18 @@ const showEditJournalForm = async (req, res) => {
 };
 
 const processEditJournal = async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        errors.array().forEach(error => {
+            req.flash("error", error.msg);
+        });
+
+        return res.redirect("/my-quests");
+    }
+
     try {
-        await updateJournalEntry(
+        const updatedJournal = await updateJournalEntry(
             req.params.journalId,
             req.session.user.id,
             {
@@ -73,6 +119,11 @@ const processEditJournal = async (req, res) => {
                 entry: req.body.entry
             }
         );
+
+        if (!updatedJournal) {
+            req.flash("error", "Journal entry not found");
+            return res.redirect("/my-quests");
+        }
 
         req.flash("success", "Quest journal updated");
         res.redirect("/my-quests");
@@ -86,10 +137,15 @@ const processEditJournal = async (req, res) => {
 
 const processDeleteJournal = async (req, res) => {
     try {
-        await deleteJournalEntry(
+        const deletedJournal = await deleteJournalEntry(
             req.params.journalId,
             req.session.user.id
         );
+
+        if (!deletedJournal) {
+            req.flash("error", "Journal entry not found");
+            return res.redirect("/my-quests");
+        }
 
         req.flash("success", "Quest journal deleted");
         res.redirect("/my-quests");

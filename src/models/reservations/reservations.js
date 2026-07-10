@@ -42,6 +42,20 @@ const getRequestsByUserId = async (userId) => {
     return result.rows;
 };
 
+const getCompletedRequestForUser = async (requestId, userId) => {
+    const sql = `
+        SELECT *
+        FROM quest_requests
+        WHERE id = $1
+            AND user_id = $2
+            AND status = 'Completed'
+        LIMIT 1;
+    `;
+
+    const result = await db.query(sql, [requestId, userId]);
+    return result.rows[0] || null;
+};
+
 const getAllQuestRequests = async () => {
     const sql = `
         SELECT
@@ -93,6 +107,7 @@ const updateQuestRequestStatus = async (requestId, status) => {
 export {
     createQuestRequest,
     getRequestsByUserId,
+    getCompletedRequestForUser,
     getAllQuestRequests,
     updateQuestRequestStatus,
     VALID_REQUEST_STATUSES
