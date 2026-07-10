@@ -1,12 +1,16 @@
 # Emberhold Quest Portal
 
-## Project Description
+*A medieval-inspired quest reservation and guild management system built with Node.js, Express, PostgreSQL, EJS, and Render.*
+
+---
+
+# Project Description
 
 Welcome to Emberhold!
 
 Emberhold Quest Portal is a medieval-inspired web application that I created as my final project for CSE 340 Web Backend Development at BYU–Idaho.
 
-Rather than creating a traditional business application, I wanted to build something that people could imagine actually using. I've always enjoyed medieval worlds and immersive experiences, so creating Emberhold gave me the opportunity to combine those interests while applying everything I learned throughout this course.
+Rather than creating a traditional business application, I wanted to build something people could imagine actually using. I've always enjoyed medieval worlds and immersive experiences, so creating Emberhold gave me the opportunity to combine those interests while applying everything I learned throughout this course.
 
 Guild members can create accounts, browse available quests, request adventures, follow their progress through a multi-stage workflow, and record completed journeys in their personal Quest Journal.
 
@@ -18,7 +22,9 @@ Although this project was created to demonstrate backend development concepts, i
 
 # Why I Chose This Project
 
-I have always enjoyed creating immersive experiences and wanted a project that allowed me to practice backend development while building something meaningful to me. Designing Emberhold allowed me to combine database design, authentication, user management, workflows, and dynamic content into a project that feels like a real application instead of simply completing assignment requirements.
+I have always enjoyed creating immersive experiences and wanted a project that allowed me to practice backend development while building something meaningful to me.
+
+Designing Emberhold allowed me to combine database design, authentication, user management, workflows, and dynamic content into a project that feels like a real application instead of simply completing assignment requirements.
 
 Building this project challenged me to think differently about application architecture and gave me much more confidence working with Express, PostgreSQL, MVC, authentication, validation, deployment, and debugging real-world problems.
 
@@ -28,23 +34,23 @@ It was exciting to watch the project grow from a simple idea into a complete web
 
 # Live Application
 
-https://emberhold-quest-portal.onrender.com
+🔗 https://emberhold-quest-portal.onrender.com
 
 ---
 
 # GitHub Repository
 
-https://github.com/jkulmus/emberhold-quest-portal
+🔗 https://github.com/jkulmus/emberhold-quest-portal
 
 ---
 
 # Application Preview
 
-The following screenshots highlight some of the major features available throughout the Emberhold Quest Portal.
+The screenshots below walk through the Emberhold Quest Portal from the perspective of both guild members and administrators, highlighting the major features and workflow of the application.
 
 ## Home Page
 
-The landing page introduces visitors to Emberhold and provides access to the Quest Board, registration, and login.
+The landing page welcomes visitors to Emberhold and provides access to the Quest Board, registration, and login.
 
 ![Home Page](public/images/home-page.png)
 
@@ -52,29 +58,31 @@ The landing page introduces visitors to Emberhold and provides access to the Que
 
 ## Quest Board
 
-The Quest Board displays all available quests stored in the PostgreSQL database. Users can browse quests and view detailed information before requesting an adventure.
+The Quest Board displays all available quests stored in the PostgreSQL database. Guild members can browse quests and view detailed information before requesting an adventure.
 
 ![Quest Board](public/images/quest-board.png)
 
 ---
 
-## Guild Hall
+## Guild Dashboard
 
-After logging in, guild members gain access to their personal dashboard where they can manage quests, view their progress, and access role-specific features.
+After logging in, guild members are taken to their personal dashboard where they can manage quests, monitor their progress, and access features based on their role.
 
-![Guild Hall](public/images/guild-hall.png)
+![Guild Dashboard](public/images/guild-dashboard.png)
 
 ---
 
 ## Guild Management
 
-Administrators have access to guild management tools that allow them to manage users, assign roles, and oversee the Emberhold community.
+Administrators have access to guild management tools that allow them to manage users, assign roles, create quests, and oversee the Emberhold community.
 
 ![Guild Management](public/images/guild-management.png)
 
+---
+
 ## Quest Workflow
 
-One of the core features of Emberhold is the quest request workflow. As a guild member, a quest progresses through several stages before it can be completed and recorded in a Quest Journal.
+One of the core features of Emberhold is the quest request workflow. Guild members can easily follow the progress of their adventures from submission through completion.
 
 ### 1. Quest Requested
 
@@ -86,7 +94,7 @@ After selecting a quest from the Quest Board, the request is submitted and appea
 
 ### 2. Quest Approved
 
-Guild staff review incoming requests and can approve them. Once approved, the guild member can see the updated status.
+Guild staff review incoming requests and approve adventures that are ready to begin. Guild members immediately see the updated status.
 
 ![Quest Approved](public/images/quest-approved.png)
 
@@ -94,9 +102,17 @@ Guild staff review incoming requests and can approve them. Once approved, the gu
 
 ### 3. Quest Completed
 
-After the quest has been completed, the guild member can create a personal Quest Journal entry documenting their adventure.
+Once the quest has been completed, guild members can write a personal Quest Journal entry documenting their adventure and rating their experience.
 
 ![Quest Completed](public/images/quest-completed.png)
+
+---
+
+## Journal Moderation
+
+Administrators can moderate community journal entries when necessary by reviewing submissions and removing inappropriate content.
+
+![Journal Moderation](public/images/journal-moderation.png)
 
 ---
 
@@ -151,7 +167,7 @@ Administrators have full control of the guild and can:
 - EJS
 - ECMAScript Modules (ESM)
 - Express Session
-- connect-pg-simple (PostgreSQL Session Store)
+- connect-pg-simple
 - bcrypt
 - express-validator
 - pnpm
@@ -198,9 +214,9 @@ public
 └── css
 ```
 
-Models handle database communication, controllers process business logic, routes connect URLs to controller actions, middleware manages authentication, authorization, validation, flash messages, and error handling, while EJS views render the user interface.
+Models manage database communication, controllers handle business logic, routes connect incoming requests to the appropriate controllers, middleware manages authentication, authorization, validation, flash messaging, and error handling, while EJS views render the user interface.
 
-This separation of concerns makes the project easier to maintain, extend, and understand.
+Organizing the project this way keeps the application easier to maintain, extend, and understand.
 
 ---
 
@@ -227,6 +243,8 @@ Relationships include:
 - One Quest Request → Many Journal Entries
 
 ![Emberhold Quest Portal ERD](public/images/emberhold-erd.png)
+
+This schema demonstrates the normalized database structure used throughout the application and the relationships that support authentication, quest management, workflow tracking, and journal entries.
 
 ---
 
@@ -323,7 +341,7 @@ Security features include:
 | Staff | emberhold.staff@test.com |
 | Standard User | emberhold.user@test.com |
 
-All test accounts use the password specified in the project requirements
+All test accounts use the common password required by the course assignment:
 
 ---
 
@@ -372,7 +390,7 @@ Current limitations include:
 
 - Journal moderation currently supports removal instead of more advanced moderation tools.
 - Quest categories and images are planned for a future version of Emberhold.
-- Additional workflow stages such as "In Progress" could be added in future updates.
+- Additional workflow stages such as **In Progress** could be added in future updates.
 - Additional accessibility improvements could still be made.
 
 ---
@@ -397,7 +415,9 @@ If I continue developing Emberhold, I would like to add:
 
 This project represents everything I learned throughout CSE 340. It challenged me to combine authentication, authorization, database design, MVC architecture, server-side rendering, validation, and deployment into one complete application.
 
-More importantly, this project gave me the opportunity to build something I genuinely enjoyed creating. Seeing Emberhold grow from a simple idea into a fully deployed application has been one of the most rewarding parts of this course. While there are many additional features I hope to build in the future, I am proud of what I accomplished and excited to continue expanding this project beyond the classroom.
+The most rewarding part of this project was watching it grow from a simple idea into a fully deployed web application. Every new feature built on the previous one, and by the end of the course I had created something that feels like a real application instead of just another assignment.
+
+This project gave me the opportunity to build something I genuinely enjoyed creating. While there are many additional features I hope to add in the future, I am proud of what I accomplished and excited to continue expanding Emberhold well beyond the classroom.
 
 ---
 
