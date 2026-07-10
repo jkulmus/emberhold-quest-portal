@@ -21,11 +21,11 @@ const questRules = [
         .withMessage("Reward must be at least 2 characters"),
 
     body("duration_minutes")
-        .isIn({ min: 1 })
+        .isInt({ min: 1 })
         .withMessage("Duration must be at least 1 minute"),
 
     body("max_party_size")
-        .isIn({ min: 1 })
+        .isInt({ min: 1 })
         .withMessage("Max party size must be at least 1")
 ];
 

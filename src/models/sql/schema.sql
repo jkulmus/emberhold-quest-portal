@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS users (
     name VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role_id INTEGER REFERENCES roles(id),
+    role_id INTEGER REFERENCES roles(id) ON DELETE SET NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -30,8 +30,8 @@ CREATE TABLE IF NOT EXISTS quests (
 
 CREATE TABLE IF NOT EXISTS  quest_requests (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL REFERENCES users(id),
-    quest_id INTEGER NOT NULL REFERENCES quests(id),
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    quest_id INTEGER NOT NULL REFERENCES quests(id) ON DELETE CASCADE,
     status VARCHAR(50) DEFAULT 'Requested',
     staff_notes TEXT,
     completed_at TIMESTAMP,
@@ -41,8 +41,8 @@ CREATE TABLE IF NOT EXISTS  quest_requests (
 
 CREATE TABLE IF NOT EXISTS quest_journals (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL REFERENCES users(id),
-    quest_request_id INTEGER NOT NULL REFERENCES quest_requests(id),
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    quest_request_id INTEGER NOT NULL REFERENCES quest_requests(id) ON DELETE CASCADE,
     rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
     entry TEXT NOT NULL,
     is_active BOOLEAN DEFAULT TRUE,
@@ -56,6 +56,28 @@ VALUES
     ('staff', 'Guild staff member who manages reservations'),
     ('admin', 'Guild master with full system access')
 ON CONFLICT (role_name) DO NOTHING;
+
+INSERT INTO users (name, email, password, role_id)
+VALUES
+(
+    'Emberhold Admin',
+    'emberhold.admin@test.com',
+    '$2b$10$IKmlFEj//yvoFW4bTUofcemAhK9slxVwfuBMJ8no79c57pzXryBCS',
+    (SELECT id FROM roles WHERE role_name = 'admin')
+),
+(
+    'Emberhold Staff',
+    'emberhold.staff@test.com',
+    '$2b$10$IKmlFEj//yvoFW4bTUofcemAhK9slxVwfuBMJ8no79c57pzXryBCS',
+    (SELECT id FROM roles WHERE role_name = 'staff')
+),
+(
+    'Emberhold User',
+    'emberhold.user@test.com',
+    '$2b$10$IKmlFEj//yvoFW4bTUofcemAhK9slxVwfuBMJ8no79c57pzXryBCS',
+    (SELECT id FROM roles WHERE role_name = 'user')
+)
+ON CONFLICT (email) DO NOTHING;
 
 INSERT INTO quests (
     title,

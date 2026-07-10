@@ -4,222 +4,264 @@
 
 Welcome to Emberhold!
 
-Emberhold Quest Portal is a medieval-inspired guild and quest management application that I created for my CSE 340 Web Backend Development final project.
+Emberhold Quest Portal is a medieval-inspired web application that I created as my final project for CSE 340 Web Backend Development at BYU–Idaho.
 
-I wanted to build something that felt more like the beginning of a living world than a traditional business application. Guild members can create accounts, browse available quests, request adventures, track their progress, and record completed journeys through personal Quest Journal entries.
+Rather than creating a traditional business application, I wanted to build something that felt like the beginning of a living world. Guild members can create accounts, browse available quests, request adventures, follow their progress through a multi-stage workflow, and record completed journeys in their personal Quest Journal.
 
-Guild staff members manage incoming quest requests and update their progress. Guild administrators oversee the larger system by managing users and roles, creating and maintaining quest content, and moderating community journal entries.
+Guild staff members help manage incoming quest requests while guild administrators oversee the guild by managing quests, user roles, and community journal entries.
 
-Although this project was created to demonstrate backend development concepts, it also represents the beginning of a much larger immersive world that I hope to continue building in the future.
+Although this project was created to demonstrate backend development concepts, it also represents the beginning of a much larger immersive medieval experience that I hope to continue developing in the future.
 
-## Live Application
+---
 
-**Render deployment:**  
-`https://emberhold-quest-portal.onrender.com`
+# Why I Chose This Project
 
-## GitHub Repository
+I have always enjoyed creating immersive experiences and wanted a project that allowed me to practice backend development while building something meaningful to me. Designing Emberhold allowed me to combine database design, authentication, user management, workflows, and dynamic content into a project that feels like a real application instead of simply completing assignment requirements.
 
-`https://github.com/jkulmus/emberhold-quest-portal.git`
+Building this project challenged me to think differently about application architecture and gave me much more confidence working with Express, PostgreSQL, MVC, authentication, validation, and deployment.
 
-## Main Features
+---
 
-### Guests
+# Live Application
 
-- View the home and about pages
-- Browse the public Quest Board
-- View individual quest details
+https://emberhold-quest-portal.onrender.com
+
+---
+
+# GitHub Repository
+
+https://github.com/jkulmus/emberhold-quest-portal
+
+---
+
+# Features
+
+## Guests
+
+- Browse the Quest Board
+- View quest details
 - Register for a guild account
-- Log into an existing account
+- Login
 
-### Guild Members
+## Guild Members
 
-- Browse and request quests
-- View personal quest requests
-- Track request status
-- View recent activity through the Guild Hall
-- Create Quest Journal entries for completed quests
-- Edit their own journal entries
-- Delete their own journal entries
+- Browse available quests
+- Request quests
+- Track quest request status
+- View quest history
+- Create Quest Journal entries
+- Edit personal journal entries
+- Delete personal journal entries
 
-### Guild Staff
+## Guild Staff
 
-Staff members have all standard-user permissions, plus they can:
+Staff members can:
 
-- View all submitted Guild Requests
+- View all Guild Requests
 - Approve quest requests
-- Update quest-request statuses
-- Mark requests as completed or cancelled
+- Update quest request statuses
+- Complete or cancel quests
 
-### Guild Administrators
+## Guild Administrators
 
-Administrators have full system access and can:
+Administrators can:
 
-- Perform all staff actions
-- Create new quests
-- Edit existing quests
+- Create quests
+- Edit quests
 - Delete quests
-- View guild members
-- Change user roles
-- Moderate and remove inappropriate Quest Journal entries
-- View operational quest activity
+- Manage user roles
+- Moderate Quest Journal entries
+- Access all staff features
 
-## Technology Stack
+---
+
+# Technology Stack
 
 - Node.js
 - Express.js
-- EJS
 - PostgreSQL
-- ECMAScript Modules
-- `express-session`
-- `connect-pg-simple`
+- EJS
+- ECMAScript Modules (ESM)
+- Express Session
+- connect-pg-simple
 - bcrypt
-- `express-validator`
+- express-validator
 - pnpm
 - Render
 
-## Skills Demonstrated
+---
+
+# Skills Demonstrated
 
 This project demonstrates:
 
+- MVC Architecture
 - Server-side rendering with EJS
-- MVC architecture and separation of concerns
-- PostgreSQL database design
-- Foreign-key relationships
+- PostgreSQL database relationships
 - Session-based authentication
 - Password hashing with bcrypt
 - Role-based authorization
-- Protected routes
 - Dynamic routing
 - Parameterized SQL queries
-- Form validation and sanitization
+- Form validation
 - Dynamic content management
 - User-generated content
-- Multi-stage workflow tracking
+- Multi-stage workflow management
 - Administrative dashboards
-- Global error handling
-- Production deployment with environment variables
+- Deployment using Render
 
-## MVC Architecture
+---
 
-The application is organized using the Model-View-Controller pattern.
+# MVC Architecture
 
-```text
-src/
-├── controllers/
-├── middleware/
-├── models/
-├── routes/
-└── views/
+The project is organized using the MVC design pattern.
 
-public/
-└── css/
+```
+src
+├── controllers
+├── middleware
+├── models
+├── routes
+└── views
+
+public
+└── css
 ```
 
-Models contain database queries and data-related logic. Controllers coordinate requests and responses. Routes connect URLs to controller functions. EJS views render the application interface, and middleware handles authentication, authorization, validation, flash messages, and errors.
+Models handle database communication, controllers process requests, routes connect URLs to controllers, middleware manages authentication, authorization, validation, and flash messages, and EJS views render the user interface.
 
-## Database Schema
+---
 
-The database contains the following primary application tables:
+# Database Schema
 
-- `roles`
-- `users`
-- `quests`
-- `quest_requests`
-- `quest_journals`
+The application uses a normalized PostgreSQL database with multiple related tables.
 
-The relationships allow users to have roles, request quests, track request statuses, and write journal entries connected to completed quest requests.
+Primary tables include:
 
-![Emberhold database ERD](docs/emberhold-erd.png)
+- Roles
+- Users
+- Quests
+- Quest Requests
+- Quest Journals
 
-## User Roles
+Relationships include:
 
-### Standard User
+- One Role → Many Users
+- One User → Many Quest Requests
+- One Quest → Many Quest Requests
+- One User → Many Quest Journal Entries
+- One Quest Request → Many Journal Entries
 
-A standard guild member can:
+![Emberhold Quest Portal ERD](docs/emberhold-erd.png)
 
+---
+
+# User Roles
+
+## Standard User
+
+- Register and login
 - Browse quests
 - Request quests
-- View personal request history
-- Track quest-request statuses
+- Track quest status
 - Create, edit, and delete personal Quest Journal entries
 
-### Staff
+## Staff
 
-A staff member can perform all standard-user actions and can also:
+All Standard User permissions plus:
 
 - View Guild Requests
 - Approve requests
 - Update request statuses
-- Complete or cancel requests
+- Complete or cancel quests
 
-Staff members cannot create, edit, or delete quest content and cannot manage user roles.
+## Administrator
 
-### Administrator
+All Staff permissions plus:
 
-An administrator has full system access and can:
+- Create quests
+- Edit quests
+- Delete quests
+- Manage user roles
+- Moderate Quest Journals
 
-- Manage quest requests
-- Create, edit, and delete quests
-- View users
-- Change user roles
-- Moderate Quest Journal entries
-- Access all administrative controls
+---
 
-## Test Accounts
+# Multi-Stage Workflow
 
-| Role | Email |
-|---|---|
-| Standard User | `emberhold.user@test.com` |
-| Staff | `emberhold.staff@test.com` |
-| Administrator | `emberhold.admin@test.com` |
+Quest requests progress through the following workflow:
 
-All test accounts use the common password specified in the final-project requirements
-
-## Multi-Stage Workflow
-
-Quest requests move through a status-based workflow:
-
-```text
+```
 Requested
-    ↓
+      ↓
 Approved
-    ↓
+      ↓
 Completed
 ```
 
-Requests may also be cancelled when appropriate.
+Requests may also be cancelled if necessary.
 
-Guild members can see their current request statuses through **My Quests** and the **Guild Hall**. Staff and administrators can update those statuses through **Guild Requests**. Once a quest is completed, the member can create a Quest Journal entry.
+Guild members can monitor their request status through the **My Quests** page while staff and administrators update statuses through the **Guild Requests** page.
 
-## User-Generated Content
+---
 
-Completed quest requests allow guild members to write Quest Journal entries containing:
+# User Interaction
 
-- A rating from one to five
-- A written account of their experience
+Guild members can create Quest Journal entries after completing quests.
 
-Users may view, edit, and delete their own journal entries. Administrators can moderate active journal entries and remove inappropriate content.
+Each journal entry includes:
 
-## Security
+- Rating
+- Written adventure summary
+- Date created
 
-The project includes several security practices:
+Users can:
 
-- Passwords are hashed with bcrypt
-- Authentication uses server-side sessions
-- Sessions are stored in PostgreSQL
-- Routes are protected by login and role middleware
-- SQL queries use parameterized values
-- Forms use server-side validation
-- Sensitive configuration is stored in environment variables
-- `.env` is excluded from Git
-- Production errors do not expose sensitive system details
+- View
+- Edit
+- Delete
 
-## Local Installation
+their own journal entries.
+
+Administrators can moderate journal entries by removing inappropriate content.
+
+---
+
+# Security
+
+Security features include:
+
+- Password hashing using bcrypt
+- Session-based authentication
+- Role-based authorization
+- Protected routes
+- Parameterized SQL queries
+- Server-side validation using express-validator
+- Environment variables for sensitive configuration
+- .env excluded from Git
+- Secure production deployment
+
+---
+
+# Test Accounts
+
+| Role | Email |
+|------|-------|
+| Administrator | emberhold.admin@test.com |
+| Staff | emberhold.staff@test.com |
+| Standard User | emberhold.user@test.com |
+
+All test accounts use the common password specified in the project requirements.
+
+---
+
+# Local Installation
 
 Clone the repository:
 
 ```bash
-git clone PASTE_GITHUB_URL_HERE
+git clone https://github.com/jkulmus/emberhold-quest-portal
+
 cd emberhold-quest-portal
 ```
 
@@ -229,58 +271,73 @@ Install dependencies:
 pnpm install
 ```
 
-Create a local `.env` file:
+Create a `.env` file:
 
 ```env
 NODE_ENV=development
+
 PORT=3000
+
 DB_URL=your_postgresql_connection_string
+
 SESSION_SECRET=your_session_secret
 ```
 
-Start the application:
+Run the application:
 
 ```bash
 pnpm start
 ```
 
-For development with automatic restarting:
+Development mode:
 
 ```bash
 pnpm dev
 ```
 
-The local application will normally be available at:
+---
 
-```text
-http://localhost:3000
-```
+# Known Limitations
 
-## Known Limitations
+Current limitations include:
 
-- Quest Journal moderation currently supports removal rather than flagging or administrator editing.
-- Quest requests use a focused status workflow and do not currently preserve a separate timestamped audit record for every individual status change.
-- Quest images and categories are not yet implemented.
-- The project currently uses the PostgreSQL database supplied through the course environment.
-- Some visual and accessibility improvements could still be added in future versions.
+- Journal moderation currently supports removal instead of advanced moderation tools.
+- Quest categories and images have not yet been implemented.
+- Additional workflow stages such as "In Progress" could be added in future versions.
+- Additional accessibility improvements could still be made.
 
-## Future Improvements
+---
+
+# Future Improvements
 
 If I continue developing Emberhold, I would like to add:
 
-- Quest categories, sorting, and filtering
-- Quest artwork and location maps
-- Expanded statuses such as In Progress and Awaiting Signoff
-- A complete timestamped status-history table
-- Guild achievements, ranks, and badges
-- Quest scheduling and calendar integration
-- Staff notes and communication with guild members
-- Additional kingdoms and connected storylines
-- Expanded accessibility and responsive-design testing
+- Quest images
+- Quest categories and filtering
+- Guild achievements and badges
+- Quest scheduling
+- Guild messaging
+- Expanded journal moderation
+- Additional workflow stages
+- Multiple kingdoms connected through one shared world
+- More immersive story-driven adventures
 
-## Author
+---
 
-**Jacquelyn Kulmus**  
-CSE 340 Web Backend Development  
-BYU–Idaho  
+# Final Thoughts
+
+This project represents everything I learned throughout CSE 340. It challenged me to combine authentication, authorization, database design, MVC architecture, server-side rendering, validation, and deployment into one complete application.
+
+More importantly, it gave me the opportunity to build something I genuinely enjoyed creating. While there are many additional features I hope to add in the future, I am proud of how much Emberhold has grown throughout this course and excited to continue developing it beyond this class.
+
+---
+
+# Author
+
+**Jacquelyn Kulmus**
+
+CSE 340 Web Backend Development
+
+BYU–Idaho
+
 2026

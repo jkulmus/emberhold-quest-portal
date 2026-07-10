@@ -3,6 +3,8 @@ import {
     updateUserRole
 } from "../../models/userModel.js";
 
+const VALID_ROLES = ["user", "staff", "admin"];
+
 const manageUsersPage = async (req, res) => {
     try {
         const users = await getAllUsersWithRoles();
@@ -18,6 +20,11 @@ const manageUsersPage = async (req, res) => {
 };
 
 const processRoleUpdate = async (req, res) => {
+    if (!VALID_ROLES.includes(req.body.role)) {
+        req.flash("error", "Please choose a valid guild role");
+        return res.redirect("/admin/users");
+    }
+
     try {
         await updateUserRole(req.params.id, req.body.role);
 
