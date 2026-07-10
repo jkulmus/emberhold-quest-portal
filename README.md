@@ -341,7 +341,7 @@ Security features include:
 | Staff | emberhold.staff@test.com |
 | Standard User | emberhold.user@test.com |
 
-All test accounts use the common password required by the course assignment:
+All test accounts use the common password required by the course assignment
 
 ---
 
