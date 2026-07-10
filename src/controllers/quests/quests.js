@@ -1,3 +1,5 @@
+import { validationResult } from "express-validator";
+
 import { 
     getAllQuests,
     getQuestById,
@@ -45,6 +47,13 @@ const showCreateQuestForm = (req, res) => {
 };
 
 const processCreateQuest = async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        req.flash("error", errors.array()[0].msg);
+        return res.redirect("/quests/new");
+    }
+
     try {
         await createQuest(req.body);
 
@@ -80,6 +89,13 @@ const showEditQuestForm = async (req, res) => {
 };
 
 const processEditQuest = async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        req.flash("error", errors.array()[0].msg);
+        return res.redirect(`/quests/${req.params.id}/edit`);
+    }
+
     try {
         const updatedQuest = await updateQuest(req.params.id, req.body);
 
