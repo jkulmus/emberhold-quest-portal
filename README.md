@@ -242,7 +242,7 @@ Relationships include:
 - One User → Many Quest Journal Entries
 - One Quest Request → Many Journal Entries
 
-![Emberhold Quest Portal ERD](public/images/emberhold-erd.png)
+![Emberhold Quest Portal ERD](docs/emberhold-erd.pngemberhold-erd.png)
 
 This schema demonstrates the normalized database structure used throughout the application and the relationships that support authentication, quest management, workflow tracking, and journal entries.
 
